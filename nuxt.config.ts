@@ -1,13 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        '@nuxtjs/tailwindcss'
+        '@nuxt/image-edge',
+        '@nuxtjs/tailwindcss',
+        '@nuxtjs/i18n'
     ],
     runtimeConfig: {
         buildModules: [
-            "@nuxt/image",
             "@nuxtjs/svg"
         ],
+        public: {
+            server_url: process.env.SERVER_URL
+        }
     },
     app: {
         head: {
@@ -18,6 +22,26 @@ export default defineNuxtConfig({
                 { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" }
             ]
         }
+    },
+    css: [
+        "@/assets/css/style.css"
+    ],
+    i18n: {
+        strategy: 'no_prefix',
+        vueI18n: {
+            legacy: false,
+            locale: 'zh-tw',
+        },
+        locales: [
+            {
+                code: 'zh-tw',
+                name: 'Tranditional Chinese'
+            },
+            {
+                code: 'en',
+                name: 'English'
+            }
+        ]
     }
 })
 
