@@ -8,12 +8,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/image": "^0.7.1",
+    "@nuxt/image-edge": "^1.0.0-27840416.dc1ed65",
+    "@nuxtjs/i18n": "^8.0.0-beta.7",
     "@nuxtjs/svg": "^0.0.0",
     "@nuxtjs/tailwindcss": "^6.2.0",
     "nuxt": "3.0.0"
   },
   "dependencies": {
+    "@skjnldsv/vue-plyr": "^7.3.0",
+    "keen-slider": "^6.8.5",
     "three": "^0.148.0"
   }
 }
