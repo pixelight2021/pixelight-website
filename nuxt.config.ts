@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    components: [
+        {
+            path: '~/components',
+            extensions: ['.vue'],
+        }
+    ],
     modules: [
         '@nuxt/image-edge',
         '@nuxtjs/tailwindcss',
@@ -30,18 +36,8 @@ export default defineNuxtConfig({
         strategy: 'no_prefix',
         vueI18n: {
             legacy: false,
-            locale: 'zh-tw',
         },
-        locales: [
-            {
-                code: 'zh-tw',
-                name: 'Tranditional Chinese'
-            },
-            {
-                code: 'en',
-                name: 'English'
-            }
-        ]
+        locales: ['zh', 'en']
     }
 })
 
