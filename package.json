@@ -15,8 +15,9 @@
     "nuxt": "3.0.0"
   },
   "dependencies": {
-    "@skjnldsv/vue-plyr": "^7.3.0",
+    "gsap": "^3.11.4",
     "keen-slider": "^6.8.5",
-    "three": "^0.148.0"
+    "three": "^0.148.0",
+    "vite-svg-loader": "^4.0.0"
   }
 }
