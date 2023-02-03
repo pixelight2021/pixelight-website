@@ -1,16 +1,18 @@
 <template>
-    <div class="relative ">
+    <div class="relative">
         <nuxt-img class="min-w-full h-[438px] object-cover" :src="work.cover.source_url" />
         <div class="absolute max-w-[90%] bottom-[47px] bg-[#ffffffe6] text-h4 px-[30px] py-[10px]">{{ work.name[`${$i18n.locale}`] }}</div>
     </div>
 
     <div class="py-[24px] p-page">
         <!-- iframe這邊會產生不影響運作的error，待解決 -->
-        <iframe class="w-full aspect-video" src="https://player.vimeo.com/video/685312218" allowfullscreen></iframe>
+        <iframe class="w-full aspect-video" :src="work.trailer" allowfullscreen></iframe>
+        
         <div class="flex">
             <div class="block sm:hidden"></div>
             <p>{{ work.content1[`${$i18n.locale}`] }}</p>
         </div>
+
         <div class="relative">
             <ul ref="container" class="keen-slider h-[445px]">
                 <li class="keen-slider__slide rounded-[10px] min-w-[255px] ">
@@ -69,7 +71,7 @@ let work
 
 try {
     const { id } = useRoute().params
-    const url = 'http://localhost/wordpress/wp-json/wp/v2/work/' + id
+    const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works/' + id
     const {data} = await useFetch(url)
     if (!data?.value) throw new Error('work not found')
 
