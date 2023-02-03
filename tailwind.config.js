@@ -7,6 +7,9 @@ module.exports = {
       'sm': '768px'
     },
     extend: {
+      spacing: {
+        'px': '1px'
+      },
       fontSize: {
         //header
         h2: '60px',
@@ -34,7 +37,7 @@ module.exports = {
         'input': '1fr 5fr',
         //staff list
         'staff': '2fr 4fr'
-      }
+      },
     },
   },
   plugins: [],
