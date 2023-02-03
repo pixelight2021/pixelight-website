@@ -1,11 +1,5 @@
 <template>
-    <li class="inline-block min-w-[70px] border p-0.5 mr-[10px] text-ovr text-center">
+    <li class="inline-block border border-[#666] px-2 py-0.5 text-ovr text-center text-[#666]">
         #<slot />
     </li>
 </template>
-
-<!-- <script setup>
-const props = defineProps(['tagId'])
-const appConfig = useAppConfig()
-const tag = appConfig.tags.find(t => t.id === props.tagId)
-</script> -->
