@@ -1,6 +1,6 @@
 export default async function () {
     try {
-        const url = 'http://localhost/wordpress/wp-json/tag-groups/v1/terms?_fields=id,name,groups'
+        const url = 'http://192.168.2.140/wordpress/wp-json/tag-groups/v1/terms?_fields=id,name,slug,groups'
         const res = await useFetch(url)
 
         //requested media not found

@@ -1,6 +1,6 @@
 export default async function () {
     try {
-        const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/media?_fields=id,source_url'
+        const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works?_fields=id,date,tags,acf'
         const res = await useFetch(url)
 
         //requested media not found
