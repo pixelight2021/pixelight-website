@@ -1,0 +1,30 @@
+<svg class="absolute w-full h-full" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .ring {
+        fill: none;
+        stroke: white;
+        stroke-width: 1;
+      }
+
+      .rotate-line {
+        fill: none;
+        stroke: #D4D4D4;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 180;
+      }
+
+      .satellite {
+        fill: #E4E4E4;
+      }
+    </style>
+  </defs>
+  <circle class="ring" cx="50" cy="50" r="46"></circle>
+  <circle class="rotate-line" cx="50" cy="50" r="46">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="8s" repeatCount="indefinite" />
+  </circle>
+  <circle class="satellite" cx="50" cy="4" r="4">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="360 50 50" to="0 50 50" dur="5s" repeatCount="indefinite" />
+  </circle>
+</svg>

@@ -1,7 +1,8 @@
 export default defineAppConfig({
-    works: [],
-    tags: [],
-    tagGroups: [],
-    clients: [],
-    medias: []
+    works: null,
+    categories: null,
+    tags: null,
+    tagGroups: null,
+    clients: null,
+    medias: new Map()
   })

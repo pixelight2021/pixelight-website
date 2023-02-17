@@ -2,6 +2,7 @@ import svgLoader from "vite-svg-loader"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    ssr: false,
     components: [
         {
             path: '~/components',
@@ -18,15 +19,11 @@ export default defineNuxtConfig({
             "@nuxtjs/svg"
         ],
         public: {
-            server_url: process.env.SERVER_URL
+            server_url: process.env.DOMAIN
         }
     },
     vite: {
-        plugins: [
-            svgLoader({
-                /* ... */
-            })
-        ]
+        plugins: [svgLoader()]
     },
     build: {
         transpile: ['gsap'],
@@ -34,10 +31,12 @@ export default defineNuxtConfig({
     app: {
         head: {
             link: [
+                { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+                { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
                 { rel: "preconnect", href: "https://fonts.googleapis.com" },
                 { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
-                { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" },
-                { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" }
+                { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&family=Oswald&display=swap" },
+                { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" }
             ]
         }
     },
@@ -45,7 +44,8 @@ export default defineNuxtConfig({
         "@/assets/css/style.css"
     ],
     i18n: {
-        strategy: 'no_prefix',
+        strategy: 'prefix_and_default',
+        defaultLocale: 'zh',
         vueI18n: {
             legacy: false,
             messages: {
