@@ -53,6 +53,7 @@ module.exports = {
         'staff': '2fr 4fr'
       },
       scale: {
+        '200': '2',
         '600': '6'
       }
     },

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { map } from '~~/composables/utils'
+import { map, easeOut } from '~~/composables/utils'
 import { DEVICE_SIZE } from '~~/composables/device'
 import { PAGE, VIEW_TYPE } from '~~/composables/editor'
 
@@ -184,8 +184,9 @@ onMounted(() => {
 
         if (props.editor.viewType == VIEW_TYPE.OVERVIEW) {
             const maxOff = 0.9 // max camera distance 
-            const minOff = 1.6 //min camera distance
-            const z = map(deviceSize.value, DEVICE_SIZE.XS, DEVICE_SIZE.XXXL, minOff, maxOff)
+            const minOff = 1.8 //min camera distance
+            const aspectRatio = window.innerWidth / window.innerHeight
+            const z = easeOut(aspectRatio, 390 / 844, 16/10, minOff, maxOff)
             camera.position.lerp(new THREE.Vector3(0, 0, z), 0.1)
         }
 
@@ -211,7 +212,7 @@ onMounted(() => {
         const y = Math.round((0.5 - pos.y / 2) * (window.innerHeight));
 
         anchor.style.left = `${x}px`
-        anchor.style.top = `${y -40}px`
+        anchor.style.top = `${y - 40}px`
     }
 
     window.addEventListener('resize', onWindowResize, false);

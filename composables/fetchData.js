@@ -1,6 +1,6 @@
 const appConfig = useAppConfig()
 const runtimeConfig = useRuntimeConfig()
-const domain = 'http://192.168.2.140'
+const domain = 'http://192.168.0.220'
 // const domain = runtimeConfig.public.domain
 
 export default function fetchData() {
@@ -36,7 +36,6 @@ function fetchAllClients() {
 
 export function fetchWorks(condition) {
     const url = domain + '/wordpress/wp-json/wp/v2/works?' + condition
-    console.log(url)
     return useFetch(url)
 }
 

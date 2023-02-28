@@ -19,14 +19,14 @@ export default defineNuxtConfig({
             "@nuxtjs/svg"
         ],
         public: {
-            server_url: process.env.DOMAIN
+            domain: process.env.DOMAIN
         }
     },
     vite: {
         plugins: [svgLoader()]
     },
     build: {
-        transpile: ['gsap'],
+        transpile: ['gsap', '@googlemaps/js-api-loader'],
     },
     app: {
         head: {
@@ -56,7 +56,7 @@ export default defineNuxtConfig({
                         office: '愛迪斯科技股份有限公司',
                         chat_with_us: '聯絡我們的FB',
                         phone: '台北: 02-2791-2917  I  台南: 06-205-7658',
-                        located: '台北市114內湖區民權東路六段160號11F-3',
+                        located: '台北市 114 內湖區民權東路六段 160 號 11F-3',
                     }
                 },
                 en: {

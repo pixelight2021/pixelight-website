@@ -92,6 +92,7 @@
 
 <script setup>
 import { DEVICE_SIZE } from '~~/composables/device'
+import { fetchWorks } from '~~/composables/fetchData';
 
 const { locale } = useI18n()
 const deviceSize = inject('deviceSize')
@@ -105,8 +106,9 @@ const work = ref({})
 const tags = ref([])
 try {
     const { id } = useRoute().params
-    const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works/' + id + '?_fields=tags,acf'
-    const res = await useFetch(url)
+    // const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works/' + id + '?_fields=tags,acf'
+    // const res = await useFetch(url)
+    const res = await fetchWorks(`/${id}?_fields=tags,acf`)
     if (res.error.value) throw new Error('work not found')
 
     work.value = res.data.value
