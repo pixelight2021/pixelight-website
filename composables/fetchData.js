@@ -22,20 +22,20 @@ function fetchAllTagGroups() {
     return useFetch(url).then(({ data }) => appConfig.tagGroups = data.value).catch(({ error }) => console.error(error))
 }
 function fetchAllCategories() {
-    const url = domain + '/wordpress/wp-json/wp/v2/categories?_fields=id,count,name,slug'
+    const url = domain + '/wordpress/wp-json/wp/v2/categories?_fields=id,count,name,slug&per_page=100'
     return useFetch(url).then(({ data }) => appConfig.categories = data.value).catch(({ error }) => console.error(error))
 }
 function fetchAllWorks() {
-    const url = domain + '/wordpress/wp-json/wp/v2/works?_fields=id,categories,tags,acf'
+    const url = domain + '/wordpress/wp-json/wp/v2/works?_fields=id,categories,tags,acf&per_page=100'
     return useFetch(url).then(({ data }) => appConfig.works = data.value).catch(({ error }) => console.error(error))
 }
 function fetchAllClients() {
-    const url = domain + '/wordpress/wp-json/wp/v2/clients?_fields=id,acf'
+    const url = domain + '/wordpress/wp-json/wp/v2/clients?_fields=id,acf&per_page=100'
     return useFetch(url).then(({ data }) => appConfig.clients = data.value).catch(({ error }) => console.error(error))
 }
 
 export function fetchWorks(condition) {
-    const url = domain + '/wordpress/wp-json/wp/v2/works?' + condition
+    const url = domain + '/wordpress/wp-json/wp/v2/works' + condition
     return useFetch(url)
 }
 

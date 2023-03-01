@@ -69,7 +69,7 @@
 
     <!-- search modal-->
     <Modal v-show="isSearching" :isSearching="isSearching" />
-
+    
     <!-- image -->
     <div id="full-screen-image"></div>
 </template>
@@ -81,6 +81,11 @@ import Logotype from '@/assets/svg/logotype.svg'
 /* composables */
 import { DEVICE_SIZE } from '~~/composables/device'
 import fetchData from '~~/composables/fetchData'
+
+const isLoading = ref(true)
+provide('isLoading', isLoading)
+await fetchData()
+isLoading.value = false
 
 const { path } = useRoute()
 const { locale, locales, setLocale } = useI18n()
@@ -94,8 +99,6 @@ const categories = computed(() => appConfig.categories.filter(c => c.slug != 'al
 const searchKey = ref(0)
 provide('searchKey', searchKey)
 
-const isLoading = ref(true)
-provide('isLoading', isLoading)
 
 const isSearching = ref(false)
 provide('isSearching', isSearching)
@@ -150,7 +153,5 @@ if (process.client) {
     })
 }
 
-await fetchData()
-isLoading.value = false
 </script>
 

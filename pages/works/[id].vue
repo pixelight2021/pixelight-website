@@ -78,15 +78,24 @@
         </div>
     </div>
 
-    <div class="mt-12 flex justify-between ">
-        <button class="relative pl-6 md:pl-9 max-w-1/3
-        after:absolute after:bottom-0 after:right-0 after:w-full after:h-0.5 after:bg-gradient-to-r from-[#E44AB7] to-[#4EFFDD]">
-            上個專案
-        </button>
-        <button class="relative pr-6 md:pr-9 max-w-1/3
-        after:absolute after:bottom-0 after:right-0 after:w-full after:h-0.5 after:bg-gradient-to-r from-[#E44AB7] to-[#4EFFDD]">
-            下個專案
-        </button>
+    <div class="mt-12 grid grid-cols-5 text-bdy-sm md:text-bdy-lg xl:text-h6">
+        <div class="relative col-span-2 self-end">
+            <NuxtLink v-if="preWork" :to="`/${locale}/works/${preWork.id}`" class="after:absolute after:-bottom-1 after:right-0 after:w-full after:h-0.5 after:bg-gradient-to-r from-[#E44AB7] to-[#4EFFDD]">
+                <div class="pl-page-padding-sm md:pl-page-padding-md xl:pl-page-padding-xl">
+                    {{ preWork.acf.name[`${locale}`] }}
+                </div>
+            </NuxtLink>
+        </div>
+
+        <div></div>
+
+        <div class="relative col-span-2 self-end">
+            <NuxtLink v-if="nextWork" :to="`/${locale}/works/${nextWork.id}`" class="after:absolute after:-bottom-1 after:right-0 after:w-full after:h-0.5 after:bg-gradient-to-r from-[#E44AB7] to-[#4EFFDD]">
+                <div class="pr-page-padding-sm md:pr-page-padding-md xl:pr-page-padding-xl text-right">
+                    {{ nextWork.acf.name[`${locale}`] }}
+                </div>
+            </NuxtLink>
+        </div>
     </div>
 </template>
 
@@ -102,32 +111,26 @@ onMounted(() => {
     // isLoading.value = false
 })
 
-const work = ref({})
-const tags = ref([])
-try {
-    const { id } = useRoute().params
-    // const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works/' + id + '?_fields=tags,acf'
-    // const res = await useFetch(url)
-    const res = await fetchWorks(`/${id}?_fields=tags,acf`)
-    if (res.error.value) throw new Error('work not found')
+// const work = ref({})
+const { id } = useRoute().params
+const appConfig = useAppConfig()
+const work = computed(() => appConfig.works.find(w => w.id == id))
 
-    work.value = res.data.value
-    const appConfig = useAppConfig()
-    const notAssign = appConfig.tagGroups.find(tg => tg.term_group == 0) //not assign tags
-    const mainTags = res.data.value.tags.filter(t => !notAssign.terms.includes(t))
-    for (let j = 0; j < mainTags.length; j += 3) {
-        const line = []
-        for (let i = 0; i < 3; i++) {
-            const idx = i + j
-            if (mainTags[idx]) line.push(mainTags[idx])
-        }
-        tags.value.push(line)
+const tags = ref([])
+const notAssign = appConfig.tagGroups.find(tg => tg.term_group == 0) //not assign tags
+const mainTags = work.value.tags.filter(t => !notAssign.terms.includes(t))
+for (let j = 0; j < mainTags.length; j += 3) {
+    const line = []
+    for (let i = 0; i < 3; i++) {
+        const idx = i + j
+        if (mainTags[idx]) line.push(mainTags[idx])
     }
-} catch (err) {
-    console.error(err)
-    //     //redirect to home page if work not found
-    //     useRouter().push('/')
+    tags.value.push(line)
 }
+
+const index = appConfig.works.indexOf(work.value)
+const preWork = computed(() => index > 0 ? appConfig.works[index - 1] : null)
+const nextWork = computed(() => index < appConfig.works.length - 1 ? appConfig.works[index + 1] : null)
 </script>
 
 <style scoped>

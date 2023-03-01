@@ -1,7 +1,6 @@
 <template>
     <div class="px-page-padding-sm md:px-page-padding-md xl:px-page-padding-xl">
 
-        <!-- mobile -->
         <div v-if="deviceSize < DEVICE_SIZE.MD">
             <div class="text-h6 font-medium">Works</div>
 
@@ -57,8 +56,7 @@ const deviceSize = inject('deviceSize')
 
 watch(current, async () => {
     try {
-        const url = 'http://192.168.2.140/wordpress/wp-json/wp/v2/works?categories=' + current.value.id
-        const res = await useLazyFetch(url)
+        const res = await fetchWorks(`?categories=${current.value.id}`)
         if (res.error.value) throw res.error.value
 
         works.value = res.data.value
@@ -74,8 +72,8 @@ if (sessionStorage.getItem('condition')) {
     const key = Object.keys(c)
     condition.value = c[`${key}`]
     let url
-    if(key == 'tag') url = `tags=${c.tag.id}`
-    if(key == 'category') url = `categories=${c.category.id}`
+    if (key == 'tag') url = `?tags=${c.tag.id}`
+    if (key == 'category') url = `?categories=${c.category.id}`
     try {
         const res = await fetchWorks(url)
         if (res.error.value) throw res.error.value
