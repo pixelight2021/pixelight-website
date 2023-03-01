@@ -2,7 +2,7 @@
     <div :class="{ 'bg-secondary': fallback }">
         <NuxtImg v-if="src" :src="src" class="object-cover min-w-full min-h-full max-h-full" @click="handleImageClick" />
         <Teleport v-if="isOpen && fullScreen" to='#full-screen-image'>
-            <div class="fixed z-10 left-0 top-0 w-full h-full bg-bg-dark/75 backdrop-blur-sm flex justify-center items-center" @click="handleImageClick">
+            <div class="fixed z-50 left-0 top-0 w-full h-full bg-bg-dark/75 backdrop-blur-sm flex justify-center items-center" @click="handleImageClick">
                 <NuxtImg v-if="src" :src="src" class="object-fit w-auto h-auto" />
             </div>
         </Teleport>

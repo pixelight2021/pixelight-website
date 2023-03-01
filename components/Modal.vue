@@ -13,7 +13,7 @@
 
             <div v-if="deviceSize >= DEVICE_SIZE.MD && !condition" class="mt-3">
                 <div class="text-bdy-sm">featured in PIXELIGHT</div>
-                <ul>
+                <ul class="flex">
                     <li v-for="w in featuredWorks" class="inline-block mr-14 text-bdy-sm w-[160px] overflow-hidden">
                         <NuxtLink :to="`/${locale}/works/${w.id}`" @click="handleClose">
                             <Image class="h-[120px]" :media-id="w.acf.cover" :full-screen="false" />
@@ -45,7 +45,7 @@
                     <div class="text-bdy-sm">try searching for</div>
                     <ul>
                         <li v-for="t in recommendTags" class="inline-block mr-4 mt-2 px-4 py-0.5 rounded-full border-[0.5px] border-white text-bdy-lg">
-                            {{ locale == locales[0] ? t.name : t.slug }}
+                            <NuxtLink :to="`/${locale}/works`" @click="handleTagClick(t)">{{ locale == locales[0] ? t.name : t.slug }}</NuxtLink>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +86,7 @@ const works = ref([])
 const tags = ref([])
 const condition = ref()
 const featuredWorks = computed(() => {
-    return appConfig.works.slice(0, 2)
+    return appConfig.works.slice(0, 3)
 })
 const categories = computed(() => appConfig.categories.filter(c => c.slug != 'all'))
 const recommendTags = computed(() => appConfig.tags.slice(0, 3))
@@ -98,13 +98,13 @@ watch(condition, () => {
     tags.value = []
     if (!condition.value) return
 
-    appConfig.works.forEach(w => {
+    appConfig.works?.forEach(w => {
         if (new RegExp(`.*${condition.value}.*`, 'g').test(w.acf.intro[`${locale.value}`])) {
             w.field = w.acf.intro[`${locale.value}`]
             works.value.push(w)
             return
         }
-        w.acf.blocks.forEach(b => {
+        w.acf.blocks?.forEach(b => {
             if (new RegExp(`.*${condition.value}.*`, 'g').test(b.value.content[`${locale.value}`])) {
                 w.field = b.value.content[`${locale.value}`]
                 works.value.push(w)
@@ -138,16 +138,20 @@ function highlight(p, str) {
 
 const searchKey = inject('searchKey')
 function handleTagClick(tag) {
-    sessionStorage.setItem('condition', JSON.stringify({ tag }))
-    searchKey.value++ //force <main> reload
     // isLoading.value = true
     handleClose()
+    setTimeout(() => {
+        sessionStorage.setItem('condition', JSON.stringify({ tag }))
+        searchKey.value++ //force <main> reload
+    }, 0)
 }
 
 function handleCategoryClick(category) {
-    sessionStorage.setItem('condition', JSON.stringify({ category }))
-    searchKey.value++ //force <main> reload
     // isLoading.value = true
     handleClose()
+    setTimeout(() => {
+        sessionStorage.setItem('condition', JSON.stringify({ category }))
+        searchKey.value++ //force <main> reload
+    }, 0)
 }
 </script>

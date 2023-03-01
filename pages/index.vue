@@ -86,7 +86,7 @@
 <script setup>
 import { DEVICE_SIZE } from '~~/composables/device'
 
-import gsap, { Power2 } from 'gsap'
+import { gsap, Power2 } from 'gsap'
 
 import PageRing from '@/assets/svg/pageRing.svg'
 

@@ -19,9 +19,9 @@
                 <NuxtLink :to="`/${locale}/works`">Works</NuxtLink>
                 <NuxtLink :to="`/${locale}/about`" @click="handleContactClick">Contact</NuxtLink>
                 <div class="whitespace-nowrap">
-                    <button class="uppercase" :class="{ 'text-theme-red': locale === locales[0] }" @click="handleLanguageSwitch(locales[0])">{{ locales[0]}}</button>
+                    <button class="uppercase" :class="{ 'text-theme-red': locale === locales[0] }" @click="handleLanguageSwitch(locales[0])">{{ locales[0] }}</button>
                     —
-                    <button class="uppercase" :class="{ 'text-theme-red': locale === locales[1] }" @click="handleLanguageSwitch(locales[1])">{{ locales[1]}}</button>
+                    <button class="uppercase" :class="{ 'text-theme-red': locale === locales[1] }" @click="handleLanguageSwitch(locales[1])">{{ locales[1] }}</button>
                 </div>
                 <button class="material-symbols-outlined md:text-[24px]" @click="isSearching = true">search</button>
             </div>
@@ -34,7 +34,7 @@
                 <NuxtLink :to="`/${locale}/works`" @click="handlePageClick">
                     Works
                     <ul class="[&>li]:mt-2">
-                        <li v-for="c in categories" class="text-bdy-sm md:text-h5 uppercase">
+                        <li v-for="c in categories" class="text-bdy-sm md:text-h5 uppercase" @click="handleCategoryClick(c)">
                             {{ c.slug }}
                         </li>
                     </ul>
@@ -43,14 +43,14 @@
             </div>
 
             <div class="text-bdy-lg md:text-h4 flex items-center uppercase">
-                <button class="uppercase" :class="{ 'text-theme-red': locale === locales[0] }" @click="handleLanguageSwitch(locales[0])">{{ locales[0]}} &nbsp;</button>
+                <button class="uppercase" :class="{ 'text-theme-red': locale === locales[0] }" @click="handleLanguageSwitch(locales[0])">{{ locales[0] }} &nbsp;</button>
 
                 <span v-if="deviceSize < DEVICE_SIZE.MD">—</span>
                 <span v-if="deviceSize >= DEVICE_SIZE.MD" class="material-symbols-outlined font-thin">
-                    {{ locale === locales[0] ? 'arrow_forward' : 'arrow_back'}}
+                    {{ locale === locales[0] ? 'arrow_forward' : 'arrow_back' }}
                 </span>
 
-                <button class="uppercase" :class="{ 'text-theme-red': locale === locales[1] }" @click="handleLanguageSwitch(locales[1])">&nbsp; {{ locales[1]}}</button>
+                <button class="uppercase" :class="{ 'text-theme-red': locale === locales[1] }" @click="handleLanguageSwitch(locales[1])">&nbsp; {{ locales[1] }}</button>
             </div>
         </div>
     </header>
@@ -60,7 +60,7 @@
         <slot></slot>
     </main>
 
-    <footer v-show="path != '/'" class="translate-y-full py-4 w-full bg-secondary text-ovr text-white text-center z-10">
+    <footer class="translate-y-full py-4 w-full bg-secondary text-ovr text-white text-center z-10">
         Copyright© 愛迪斯科技 2013 Axis 3D Technology, Inc. All Rights Reserved.
     </footer>
 
@@ -69,7 +69,7 @@
 
     <!-- search modal-->
     <Modal v-show="isSearching" :isSearching="isSearching" />
-    
+
     <!-- image -->
     <div id="full-screen-image"></div>
 </template>
@@ -112,9 +112,19 @@ function handlePageClick() {
     isMenuOpen.value = false
 }
 
+function handleCategoryClick(category) {
+    handlePageClick()
+    setTimeout(() => {
+        sessionStorage.setItem('condition', JSON.stringify({ category }))
+        searchKey.value++
+    }, 0)
+}
+
 function handleContactClick() {
     handlePageClick()
-    setTimeout(() => {window.scrollTo(0, document.querySelector('footer').offsetTop)}, 0)
+    setTimeout(() => {
+        window.scrollTo(0, document.querySelector('footer').offsetTop)
+    }, 10)
 }
 
 const deviceSize = ref()
@@ -128,13 +138,13 @@ if (process.client) {
     let prevScrollpos = window.pageYOffset
     function handlePageScroll() {
         if (isMenuOpen.value) return
-        
+
         let currentScrollPos = window.pageYOffset
         if (currentScrollPos < document.getElementsByTagName("header").item(0).style.height) {
             document.getElementsByTagName("header").item(0).style.transform = "translateY(0%)"
             return
         }
-        
+
         if (prevScrollpos > currentScrollPos) {
             document.getElementsByTagName("header").item(0).style.transform = "translateY(0%)"
         } else {
@@ -142,12 +152,12 @@ if (process.client) {
         }
         prevScrollpos = currentScrollPos
     }
-    
+
     onMounted(() => {
         window.addEventListener('resize', handleResize)
         window.addEventListener('scroll', handlePageScroll)
     })
-    
+
     onBeforeUnmount(() => {
         window.removeEventListener('resize', handleResize)
     })

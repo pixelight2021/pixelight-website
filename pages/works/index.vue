@@ -22,7 +22,7 @@
 
         <ul v-if="deviceSize >= DEVICE_SIZE.MD" class="mt-12 flex justify-between">
             <li v-for="c in categories" class="text-bd-sm uppercase md:font-medium xl:font-bold" :class="{ 'text-theme-red': current == c }" @click="handleCategorieClick(c)">
-                {{ locale == locales[0] ? c.name : c.slug }}
+                <button>{{ locale == locales[0] ? c.name : c.slug }}</button>
                 <sup class="-top-4 text-black font-normal">({{ c.count }})</sup>
             </li>
         </ul>

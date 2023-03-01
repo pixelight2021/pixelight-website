@@ -23,7 +23,7 @@ function fetchAllTagGroups() {
 }
 function fetchAllCategories() {
     const url = domain + '/wordpress/wp-json/wp/v2/categories?_fields=id,count,name,slug&per_page=100'
-    return useFetch(url).then(({ data }) => appConfig.categories = data.value).catch(({ error }) => console.error(error))
+    return useFetch(url).then(({ data }) => appConfig.categories = data.value.filter(c => c.slug != 'uncategorized')).catch(({ error }) => console.error(error))
 }
 function fetchAllWorks() {
     const url = domain + '/wordpress/wp-json/wp/v2/works?_fields=id,categories,tags,acf&per_page=100'
