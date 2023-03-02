@@ -14,6 +14,10 @@
     <div class="absolute w-full h-full px-page-padding-sm z-10 flex justify-center items-center" :class="{ 'pointer-events-none': isEnter }" @click="handleEnter">
         <div class="max-w-[1474px] text-h4 md:text-h3 xl:text-h2 text-center transition-opacity" :class="isEnter ? 'opacity-0' : 'opacity-full'">
             PIXELIGHT is a Design Team Founded in 2020. We Focus on Creating Interactive Experiences and Digital Art.
+            <br>
+            <span class="text-bdy-sm md:text-bdy-lg xl:text-h6 text-secondary-dark">
+                CLICK TO EXPLORE MORE
+            </span>
         </div>
     </div>
 
