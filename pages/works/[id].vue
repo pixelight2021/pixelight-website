@@ -63,12 +63,19 @@
         </div>
     </div>
 
-    <Block v-for="b in work?.acf.blocks" :value="b.value" />
+    <Block v-if="work?.acf.blocks" v-for="b in work?.acf.blocks" :value="b.value" />
 
-    <div class="mt-6 px-page-padding-sm md:px-page-padding-md xl:px-page-padding-xl">
+    <div v-if="work?.acf.gallery" class="mt-6 px-page-padding-sm md:px-page-padding-md xl:px-page-padding-xl">
         <div class="aspect-square w-full grid grid-cols-2 grid-rows-2">
             <Image v-for="id in work?.acf.gallery" :media-id="id" />
         </div>
+    </div>
+
+    <div v-if="work?.acf.website" class="my-12 px-page-padding-sm md:px-page-padding-md xl:px-page-padding-xl text-h6 text-center">
+        <a :href="work?.acf.website" target="_blank">
+            <span class="material-symbols-outlined align-middle font-thin">arrow_forward</span>
+            {{ locale == 'zh' ? '完整網站' : 'Visit Site' }}
+        </a>
     </div>
 
     <div class="my-12 px-page-padding-sm md:px-page-padding-md xl:px-page-padding-xl">
@@ -109,7 +116,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const { locale } = useI18n()
 const deviceSize = inject('deviceSize')
-const isLoading = inject('isLoading')
+// const isLoading = inject('isLoading')
 
 function $(id) {
     return document.getElementById(id)
@@ -198,11 +205,11 @@ onMounted(() => {
 
 const { id } = useRoute().params
 const appConfig = useAppConfig()
-const work = computed(() => appConfig.works.find(w => w.id == id))
+const work = computed(() => appConfig.works?.find(w => w.id == id))
 
 const tags = ref([])
-const notAssign = appConfig.tagGroups.find(tg => tg.term_group == 0) //not assign tags
-const mainTags = work.value.tags.filter(t => !notAssign.terms.includes(t))
+const notAssign = appConfig.tagGroups?.find(tg => tg.term_group == 0) //not assign tags
+const mainTags = work.value.tags?.filter(t => !notAssign.terms.includes(t))
 for (let j = 0; j < mainTags.length; j += 3) {
     const line = []
     for (let i = 0; i < 3; i++) {
@@ -212,7 +219,7 @@ for (let j = 0; j < mainTags.length; j += 3) {
     tags.value.push(line)
 }
 
-const index = appConfig.works.indexOf(work.value)
+const index = appConfig.works?.indexOf(work.value)
 const preWork = computed(() => index > 0 ? appConfig.works[index - 1] : null)
 const nextWork = computed(() => index < appConfig.works.length - 1 ? appConfig.works[index + 1] : null)
 </script>

@@ -2,7 +2,7 @@
     <Three :editor="editor" />
 
     <div v-if="editor.viewType == VIEW_TYPE.OVERVIEW">
-        <div v-if="isEnter" v-for="p, idx in PAGE" :id="p" class="fixed -translate-x-1/2 -translate-y-1/2 aspect-square rounded-full anchor" :class="isClick[idx] ? 'w-[140px] md:w-[240px] xl:w-[280px]' : 'w-6 md:w-14 xl:w-20 border border-black'" @click="handleAnchorClick(p)">
+        <div v-if="isEnter" v-for="p, idx in PAGE" :id="p" class="fixed -translate-x-1/2 -translate-y-1/2 aspect-square rounded-full anchor cursor-pointer" :class="isClick[idx] ? 'w-[140px] md:w-[240px] xl:w-[280px]' : 'w-6 md:w-14 xl:w-20 border border-black'" @click="handleAnchorClick(p)">
             <span v-if="!isClick[idx]" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 aspect-square w-[3px] md:w-[6px] xl:w-[9px] bg-black"></span>
             <PageRing v-if="isClick[idx]" />
             <div v-if="isClick[idx]" class="rounded-full overflow-hidden m-4">
@@ -23,7 +23,7 @@
                 <span class="absolute -left-1 -top-1 aspect-square w-10 rounded-full border border-secondary"></span>
                 <span class="material-symbols-outlined align-middle leading-[32px] font-thin">arrow_back</span>
             </button>
-            <div class="relative transition-opacity anchor" :class="editor.viewType == VIEW_TYPE.ROADVIEW ? 'w-[140px] md:w-[240px] xl:w-[280px]' : 'w-0 h-0'" @click="handleEnterPage(editor.page)">
+            <div class="relative transition-opacity anchor cursor-pointer" :class="editor.viewType == VIEW_TYPE.ROADVIEW ? 'w-[140px] md:w-[240px] xl:w-[280px]' : 'w-0 h-0'" @click="handleEnterPage(editor.page)">
                 <PageRing />
                 <div class="rounded-full overflow-hidden m-4">
                     <img :src="`image/${editor.page}.jpg`" class="w-full" />

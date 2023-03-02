@@ -22,7 +22,7 @@ const props = defineProps({
     },
     fallback: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
 const src = ref()

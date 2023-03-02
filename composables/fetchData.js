@@ -1,7 +1,6 @@
 const appConfig = useAppConfig()
 const runtimeConfig = useRuntimeConfig()
-const domain = 'http://192.168.0.220'
-// const domain = runtimeConfig.public.domain
+const domain = runtimeConfig.public.domain
 
 export default function fetchData() {
     return Promise.all([

@@ -27,14 +27,16 @@
             </li>
         </ul>
 
-        <div class="grid md:grid-cols-2 md:gap-x-7 xl:gap-x-12">
-            <NuxtLink v-for="w in works" :to="`/${locale}/works/${w.id}`">
-                <div class="mt-6 md:mt-8 xl:mt-16 aspect-video w-full bg-[#d4d4d4]">
-                    <Image class="object-cover min-w-full h-full" :media-id="w.acf.cover" :full-screen="false" />
-                </div>
-                <div class="mt-3 text-h6 xl:text-h4">{{ w.acf.name[`${locale}`] }}</div>
-                <div></div>
-            </NuxtLink>
+        <div :key="resultKey">
+            <div class="grid md:grid-cols-2 md:gap-x-7 xl:gap-x-12">
+                <NuxtLink v-for="w in works" :to="`/${locale}/works/${w.id}`">
+                    <div class="mt-6 md:mt-8 xl:mt-16 aspect-video w-full bg-[#d4d4d4]">
+                        <Image class="object-cover min-w-full h-full" :media-id="w.acf.cover" :full-screen="false" />
+                    </div>
+                    <div class="mt-3 text-h6 xl:text-h4">{{ w.acf.name[`${locale}`] }}</div>
+                    <div></div>
+                </NuxtLink>
+            </div>
         </div>
     </div>
 </template>
@@ -46,20 +48,22 @@ import { fetchWorks } from '~~/composables/fetchData'
 const { locale, locales } = useI18n()
 const isOpen = ref(false)
 
+const deviceSize = inject('deviceSize')
 const appConfig = useAppConfig()
 const condition = ref()
 const current = ref()
 const categories = appConfig.categories
 const works = ref()
-const isLoading = inject('isLoading')
-const deviceSize = inject('deviceSize')
+// const isLoading = inject('isLoading')
+const resultKey = ref(0)
 
 watch(current, async () => {
     try {
-        const res = await fetchWorks(`?categories=${current.value.id}`)
+        const res = await fetchWorks(`?categories=${current.value.id}&per_page=100`)
         if (res.error.value) throw res.error.value
 
         works.value = res.data.value
+        resultKey.value++
         // isLoading.value = false
     } catch (err) {
         console.error(err)
@@ -72,8 +76,8 @@ if (sessionStorage.getItem('condition')) {
     const key = Object.keys(c)
     condition.value = c[`${key}`]
     let url
-    if (key == 'tag') url = `?tags=${c.tag.id}`
-    if (key == 'category') url = `?categories=${c.category.id}`
+    if (key == 'tag') url = `?tags=${c.tag.id}&per_page=100`
+    if (key == 'category') url = `?categories=${c.category.id}&per_page=100`
     try {
         const res = await fetchWorks(url)
         if (res.error.value) throw res.error.value
