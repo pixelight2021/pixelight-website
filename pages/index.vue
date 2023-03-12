@@ -45,7 +45,7 @@
                 <span class="material-symbols-outlined align-middle xl:text-h5 font-thin">arrow_back</span>
             </button>
 
-            <div id="title" class="mt-8 mx-12 mb-48 h-[64px] md:h-[96px] xl:h-[160px] leading-[64px] md:leading-[96px] xl:leading-[160px] text-h1 md:text-[96px] xl:text-[160px] text-center font-semibold uppercase overflow-hidden">
+            <div id="title" class="mt-8 mx-auto mb-48 h-[64px] md:h-[96px] xl:h-[160px] leading-[64px] md:leading-[96px] xl:leading-[160px] text-h1 md:text-[96px] xl:text-[160px] text-center font-semibold uppercase overflow-hidden">
                 <div v-for="character in title" class="inline-block">{{ character }}</div>
             </div>
 
