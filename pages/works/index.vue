@@ -29,13 +29,17 @@
 
         <div :key="resultKey">
             <div class="grid md:grid-cols-2 md:gap-x-7 xl:gap-x-12">
-                <NuxtLink v-for="w in works" :to="`/${locale}/works/${w.id}`">
-                    <div class="mt-6 md:mt-8 xl:mt-16 aspect-video w-full bg-[#d4d4d4]">
-                        <Image class="object-cover min-w-full h-full" :media-id="w.acf.cover" :full-screen="false" />
-                    </div>
-                    <div class="mt-3 text-h6 xl:text-h4">{{ w.acf.name[`${locale}`] }}</div>
-                    <div></div>
-                </NuxtLink>
+                <div v-for="w in works">
+                    <NuxtLink :to="`/${locale}/works/${w.id}`">
+                        <div class="mt-6 md:mt-8 xl:mt-16 aspect-video w-full bg-[#d4d4d4]">
+                            <Image class="object-cover min-w-full h-full" :media-id="w.acf.cover" :full-screen="false" />
+                        </div>
+                        <div class="mt-3 text-h6 xl:text-h4">{{ w.acf.name[`${locale}`] }}</div>
+                    </NuxtLink>
+                    <button v-for="t in w.tags" @click="handleTagClick(t)">
+                        <Tag :tag-id="t" class="mt-2 mr-2" />
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -100,5 +104,16 @@ function handleCategorieClick(categorie) {
     condition.value = null
     current.value = categorie
     isOpen.value = false
+}
+
+const searchKey = inject('searchKey')
+
+async function handleTagClick(id) {
+    const tag = appConfig.tags.find(t => t.id === id)
+    setTimeout(() => {
+        sessionStorage.setItem('condition', JSON.stringify({ tag }))
+        searchKey.value++ //force <main> reload
+        window.scrollTo(0, document.querySelector('body').offsetTop)
+    }, 0)
 }
 </script>
