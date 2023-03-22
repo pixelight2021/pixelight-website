@@ -32,6 +32,7 @@ export default defineNuxtConfig({
         transpile: ['gsap', '@googlemaps/js-api-loader'],
     },
     app: {
+        baseURL: '/pixelight',
         head: {
             link: [
                 { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },

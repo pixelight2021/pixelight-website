@@ -58,7 +58,7 @@ onMounted(() => {
             value: 1.0
         }
     }
-    new GLTFLoader().load('/gltf/logo.gltf',
+    new GLTFLoader().load('./gltf/logo.gltf',
         //onload
         function (gltf) {
             mesh = gltf.scene.children[0]
