@@ -35,8 +35,8 @@ export default defineNuxtConfig({
         baseURL: '/pixelight',
         head: {
             link: [
-                { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
-                { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+                { rel: "icon", type: "image/png", sizes: "16x16", href: "./favicon-16x16.png" },
+                { rel: "icon", type: "image/png", sizes: "32x32", href: "./favicon-32x32.png" },
                 { rel: "preconnect", href: "https://fonts.googleapis.com" },
                 { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
                 { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&family=Oswald&display=swap" },
