@@ -22,7 +22,7 @@ export default defineNuxtConfig({
             "@nuxtjs/svg"
         ],
         public: {
-            domain: process.env.DOMAIN
+            cms_uri: process.env.CMS_URI
         }
     },
     vite: {
