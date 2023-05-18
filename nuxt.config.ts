@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     app: {
         // baseURL: '/pixelight',
         head: {
+            title: '砌光創境 PIXELIGHT',
             link: [
                 { rel: "icon", type: "image/png", sizes: "16x16", href: "./favicon-16x16.png" },
                 { rel: "icon", type: "image/png", sizes: "32x32", href: "./favicon-32x32.png" },
